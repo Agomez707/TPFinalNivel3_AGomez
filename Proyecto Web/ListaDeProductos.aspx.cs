@@ -1,22 +1,20 @@
-﻿using System;
+﻿using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
-using Negocio;
 
 namespace Proyecto_Web
 {
-    public partial class Home : System.Web.UI.Page
+    public partial class ListaDeProguctos : System.Web.UI.Page
     {
-        public List<Articulo> ListaArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             ArticuloNegocio articulo = new ArticuloNegocio();
-            ListaArticulos = articulo.listarConSP();
-            
+            dgvArticulos.DataSource = articulo.listarConSP();
+            dgvArticulos.DataBind();
         }
     }
 }

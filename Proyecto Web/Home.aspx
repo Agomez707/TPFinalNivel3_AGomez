@@ -5,16 +5,28 @@
     <div class="jumbotron text-center">
         <h1>Bienvenidos al Catálogo</h1>
         <p>Explora nuestros productos.</p>
-        <asp:GridView ID="dgvArticulos" runat="server" CssClass="table" AutoGenerateColumns="false">
-        <columns>
-           <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
-           <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-           <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
-           <asp:BoundField HeaderText="Categoria" DataField="Categoria.Descripcion" />
-           <asp:BoundField HeaderText="Precio" DataField="Precio" />
-        </columns>
-        </asp:GridView>
-        <hr />
-        
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <%
+            foreach (Dominio.Articulo articulo in ListaArticulos)
+            {
+        %>
+    
+        <div class="col">
+            <div class="card">
+                <img src=<%: articulo.ImagenUrl %> class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%: articulo.Nombre %></h5>
+                    <p class="card-text"><%: articulo.Descripcion %></p>
+                    <a href="DetalleArticulo.aspx?id=<%: articulo.Id %>">Ver Detalle</a>
+                </div>
+            </div>
+        </div>
+    
+        <%
+            }
+        %>
+        </div>
+
     </div>
 </asp:Content>
