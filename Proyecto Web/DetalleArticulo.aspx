@@ -50,13 +50,11 @@
                                 <label class="form-label">URL de la Imagen</label>
                                 <asp:TextBox ID="txtImagenUrl" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged"></asp:TextBox>
                             </div>
-                            
+
                             <h4 class="text-muted">Vista Previa</h4>
-                            <img src="<%= ImagenUrl %>"
-                                id="imgPreview"
-                                class="img-fluid rounded shadow"
-                                style="max-height: 300px; width: 100%; object-fit: contain;"
-                                onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg'" />
+                            <asp:Image ID="imgPreview" runat="server"
+                                CssClass="img-fluid rounded shadow"
+                                Style="max-height: 300px; width: 100%; object-fit: contain;" />
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -65,7 +63,7 @@
 
         <div class="row mt-4 mb-5">
             <div class="col-12">
-                <asp:Button ID="Button1" runat="server" Text="Aceptar" CssClass="btn btn-primary" />
+                <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
                 <a href="Home.aspx" class="btn btn-secondary">Cancelar</a>
             </div>
         </div>
