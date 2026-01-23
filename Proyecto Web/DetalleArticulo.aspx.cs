@@ -15,11 +15,15 @@ namespace Proyecto_Web
         public string ImagenUrl { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            
+
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             CategoriasNegocio categoriasNegocio = new CategoriasNegocio();
 
             try
             {
+                //Configuracion inicial de la pantalla
                 if (!IsPostBack)
                 {
                     ddlCategoria.DataSource = categoriasNegocio.Listar();
@@ -32,12 +36,38 @@ namespace Proyecto_Web
                     ddlMarca.DataTextField = "Descripcion";
                     ddlMarca.DataBind();
                 }
+
+                //Configuracion si estas modificiando
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+
+                if (id != "" && !IsPostBack)
+                {
+                    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                    Articulo seleccionado = (articuloNegocio.listar(id))[0];
+
+                    txtCodigo.Text = seleccionado.Codigo;
+                    txtNombre.Text = seleccionado.Nombre;
+                    txtDescripcion.Text = seleccionado.Descripcion;
+                    txtImagenUrl.Text = seleccionado.ImagenUrl;
+                    txtPrecio.Text = seleccionado.Precio.ToString();
+
+                    ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
+                    ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
+
+                    txtImagenUrl_TextChanged(sender, e);
+
+                }
+
+
+
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex);
                 throw;
             }
+
+
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
@@ -59,7 +89,16 @@ namespace Proyecto_Web
                 nuevo.Categoria = new Categoria();
                 nuevo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
 
-                articuloNegocio.agregarConSP(nuevo);
+                if (Request.QueryString["id"] != null)
+                {
+                    nuevo.Id = int.Parse(Request.QueryString["id"].ToString());
+                    articuloNegocio.modificarConSP(nuevo);
+                }
+                else
+                {
+                    articuloNegocio.agregarConSP(nuevo);
+                }
+
                 Response.Redirect("ListaDeProductos.aspx");
 
             }

@@ -16,5 +16,11 @@ namespace Proyecto_Web
             dgvArticulos.DataSource = articulo.listarConSP();
             dgvArticulos.DataBind();
         }
+
+        protected void dgvArticulos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = dgvArticulos.SelectedDataKey.Value.ToString();
+            Response.Redirect("DetalleArticulo.aspx?id=" + id);
+        }
     }
 }

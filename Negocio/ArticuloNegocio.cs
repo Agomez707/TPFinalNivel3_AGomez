@@ -10,14 +10,21 @@ namespace Negocio
 {
     public class ArticuloNegocio
     {
-        public List<Articulo> listar()
+        public List<Articulo> listar(string id = "")
         { 
             List<Articulo> lista = new List<Articulo>();
             AccesoADatos datos = new AccesoADatos();
 
             try
             {
-                datos.setearConsulta("Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca , M.Descripcion Marca, IdCategoria, C.Descripcion Categoria, Precio, ImagenUrl from ARTICULOS A, CATEGORIAS C, MARCAS M where A.IdMarca = M.Id and A.IdCategoria = C.Id");
+                string consulta = "Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca , M.Descripcion Marca, IdCategoria, C.Descripcion Categoria, Precio, ImagenUrl from ARTICULOS A, CATEGORIAS C, MARCAS M where A.IdMarca = M.Id and A.IdCategoria = C.Id ";
+
+                if (id != "")
+                {
+                    consulta += "and A.Id = " + id;
+                }
+
+                datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -97,6 +104,8 @@ namespace Negocio
             }
         }
 
+
+
         public void agregar(Articulo nuevo)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -164,6 +173,34 @@ namespace Negocio
                 datos.setearParametro("@Codigo", articuloMod.Codigo);
                 datos.setearParametro("@Nombre", articuloMod.Nombre);
                 datos.setearParametro("@Descripcion", articuloMod.Descripcion);
+                datos.setearParametro("@IdMarca", articuloMod.Marca.Id);
+                datos.setearParametro("@IdCategoria", articuloMod.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", articuloMod.ImagenUrl);
+                datos.setearParametro("@Precio", articuloMod.Precio);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificarConSP(Articulo articuloMod)
+        {
+            AccesoADatos datos = new AccesoADatos();
+
+            try
+            {
+                datos.setearProcedimiento("storedModificarArticulo");
+                datos.setearParametro("@Id", articuloMod.Id);
+                datos.setearParametro("@Codigo", articuloMod.Codigo);
+                datos.setearParametro("@Nombre", articuloMod.Nombre);
+                datos.setearParametro("@Descricion", articuloMod.Descripcion);
                 datos.setearParametro("@IdMarca", articuloMod.Marca.Id);
                 datos.setearParametro("@IdCategoria", articuloMod.Categoria.Id);
                 datos.setearParametro("@ImagenUrl", articuloMod.ImagenUrl);
@@ -283,6 +320,7 @@ namespace Negocio
            
         }
 
+        
     }
 
 }
