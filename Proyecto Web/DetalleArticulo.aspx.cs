@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
@@ -35,6 +36,8 @@ namespace Proyecto_Web
                     ddlMarca.DataValueField = "Id";
                     ddlMarca.DataTextField = "Descripcion";
                     ddlMarca.DataBind();
+
+                    btnEliminar.Visible = false;
                 }
 
                 //Configuracion si estas modificiando
@@ -55,6 +58,8 @@ namespace Proyecto_Web
                     ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
 
                     txtImagenUrl_TextChanged(sender, e);
+
+                    btnEliminar.Visible = true;
 
                 }
 
@@ -92,14 +97,38 @@ namespace Proyecto_Web
                 if (Request.QueryString["id"] != null)
                 {
                     nuevo.Id = int.Parse(Request.QueryString["id"].ToString());
-                    articuloNegocio.modificarConSP(nuevo);
+                    articuloNegocio.modificarConSP(nuevo); 
+                    Response.Redirect("ListaDeProductos.aspx?msg=updated");
                 }
                 else
                 {
                     articuloNegocio.agregarConSP(nuevo);
+                    Response.Redirect("ListaDeProductos.aspx?msg=added");
                 }
 
-                Response.Redirect("ListaDeProductos.aspx");
+                //Response.Redirect("ListaDeProductos.aspx");
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                
+
+                if (Request.QueryString["id"] != null)
+                {
+                    articuloNegocio.eliminar(int.Parse(Request.QueryString["id"]));
+                    Response.Redirect("ListaDeProductos.aspx?msg=deleted");
+                }
 
             }
             catch (Exception ex)

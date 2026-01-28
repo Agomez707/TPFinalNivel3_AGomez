@@ -62,9 +62,15 @@
         </div>
 
         <div class="row mt-4 mb-5">
-            <div class="col-12">
-                <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
-                <a href="Home.aspx" class="btn btn-secondary">Cancelar</a>
+            <div class="col-12 d-flex justify-content-between">
+                <div>
+                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
+                    <a href="ListaDeProductos.aspx" class="btn btn-secondary">Cancelar</a>
+                </div>
+
+                <div>
+                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" OnClientClick="return confirm('¿Estás seguro de que deseas eliminar este artículo? Esta acción no se puede deshacer.');" />
+                </div>
             </div>
         </div>
     </div>
