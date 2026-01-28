@@ -3,6 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
+
     <script>
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
@@ -32,20 +34,36 @@
             }
         };
 </script>
-    <asp:GridView ID="dgvArticulos" runat="server" CssClass="table"
-        AutoGenerateColumns="false"
-        DataKeyNames="Id"
-        OnSelectedIndexChanged="dgvArticulos_SelectedIndexChanged">
-        <Columns>
-            <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
-            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-            <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
-            <asp:BoundField HeaderText="Categoria" DataField="Categoria.Descripcion" />
-            <asp:BoundField HeaderText="Precio" DataField="Precio" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
-        </Columns>
-    </asp:GridView>
-    <hr />
+
+    <asp:UpdatePanel ID="upGrilla" runat="server">
+        <ContentTemplate>
+
+            <div class="row mb-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Filtro por Nombre</label>
+                    <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control"
+                        AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged"
+                        placeholder="Escribe para buscar..."></asp:TextBox>
+                </div>
+            </div>
+
+            <asp:GridView ID="dgvArticulos" runat="server" CssClass="table"
+                AutoGenerateColumns="false"
+                DataKeyNames="Id"
+                OnSelectedIndexChanged="dgvArticulos_SelectedIndexChanged">
+                <Columns>
+                    <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
+                    <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                    <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
+                    <asp:BoundField HeaderText="Categoria" DataField="Categoria.Descripcion" />
+                    <asp:BoundField HeaderText="Precio" DataField="Precio" />
+                    <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
+                </Columns>
+            </asp:GridView>
+            <hr />
+
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
     <div class="row mt-4 mb-5">
         <div class="col-12 d-flex justify-content-between">
