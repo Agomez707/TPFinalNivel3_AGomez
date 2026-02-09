@@ -7,7 +7,7 @@ using Dominio;
 
 namespace Negocio
 {
-    internal class UsuarioNegocio
+    public class UsuarioNegocio
     {
         public bool Loguear(Usuario usuario)
         {
@@ -19,7 +19,7 @@ namespace Negocio
                 datos.setearParametro("@user",usuario.User);
                 datos.setearParametro("@pass",usuario.Pass);
 
-                datos.ejecutarAccion();
+                datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     usuario.Id = (int)datos.Lector["Id"];
