@@ -13,5 +13,14 @@ namespace Proyecto_Web
         {
 
         }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+           
+            Session.Clear();
+            Session.Abandon();
+
+            Response.Redirect("Login.aspx");
+        }
     }
 }
