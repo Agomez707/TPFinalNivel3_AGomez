@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace Proyecto_Web
 {
@@ -11,7 +12,7 @@ namespace Proyecto_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuario"] == null)
+            if (!Seguridad.sesionActiva(Session["Usuario"]))
             {
                 Session.Add("error", "Debes loguearte para ingresar acá");
                 Response.Redirect("error.aspx", false);

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Negocio
 {
@@ -46,6 +47,30 @@ namespace Negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+        public int RegistrarNuevo(Usuario NuevoUser)
+        {
+            AccesoADatos datos = new AccesoADatos();
+
+            try
+            {
+                datos.setearProcedimiento("RegistrarNuevoUser");
+                datos.setearParametro("@email", NuevoUser.Email);
+                datos.setearParametro("@pass", NuevoUser.Pass);
+                datos.setearParametro("@nombre", NuevoUser.Nombre);
+                datos.setearParametro("@apellido", NuevoUser.Apellido);
+
+                return datos.ejecutarAccionScalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally 
+            { 
+                datos.cerrarConexion(); 
             }
         }
     }

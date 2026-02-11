@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +18,27 @@ namespace Proyecto_Web
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Usuario User = new Usuario();
+                UsuarioNegocio negocio = new UsuarioNegocio();
 
+                User.Email = txtEmail.Text;
+                User.Pass = txtPass.Text;
+                User.Nombre = txtNombre.Text;
+                User.Apellido = txtApellido.Text;
+                //Registro mi nuevo Uusario
+                User.Id = negocio.RegistrarNuevo(User);
+
+                //logueo el usuario nuevo
+                Session.Add("usuario", User);
+                Response.Redirect("Perfil.aspx", false);
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
         }
 
         
