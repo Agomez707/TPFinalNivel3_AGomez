@@ -13,5 +13,12 @@ namespace Proyecto_Web
         {
 
         }
+
+        protected void btnRegistrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

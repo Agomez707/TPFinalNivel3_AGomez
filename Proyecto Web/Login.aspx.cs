@@ -18,12 +18,14 @@ namespace Proyecto_Web
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            Usuario usuario;
+            Usuario usuario = new Usuario();
             UsuarioNegocio negocio = new UsuarioNegocio();
 
             try
             {
-                usuario = new Usuario(txtUsuario.Text, txtPassword.Text, false);
+                usuario.Email = txtUsuario.Text;
+                usuario.Pass = txtPassword.Text;
+
                 if (negocio.Loguear(usuario))
                 {
                     Session.Add("usuario", usuario);

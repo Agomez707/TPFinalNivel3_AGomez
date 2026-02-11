@@ -15,15 +15,25 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("Select Id, Tipouser from Usuarios where usuario = @user AND pass = @pass");
-                datos.setearParametro("@user",usuario.User);
+                datos.setearConsulta("Select id, admin, nombre, apellido, imagenPerfil, fechaNacimiento from USERS where email = @email AND pass = @pass");
+                datos.setearParametro("@email",usuario.Email);
                 datos.setearParametro("@pass",usuario.Pass);
 
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
-                    usuario.Id = (int)datos.Lector["Id"];
-                    usuario.TipoUsuario = (int)datos.Lector["Tipouser"] == 2 ? TipoUsuario.ADMIN : TipoUsuario.NORMAL;
+                    usuario.Id = (int)datos.Lector["id"];
+                    usuario.Admin = (bool)datos.Lector["admin"];
+
+                    if (!(datos.Lector["nombre"] is DBNull))
+                        usuario.Nombre = (string)datos.Lector["nombre"];
+
+                    if (!(datos.Lector["apellido"] is DBNull))
+                        usuario.Apellido = (string)datos.Lector["apellido"];
+
+                    if (!(datos.Lector["imagenPerfil"] is DBNull))
+                        usuario.ImagenPerfil = (string)datos.Lector["imagenPerfil"];
+
                     return true;
                 }
                 return false;

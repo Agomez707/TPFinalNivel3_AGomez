@@ -1,38 +1,70 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="Registro.aspx.cs" Inherits="Proyecto_Web.Registro" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .register-placeholder {
-            min-height: 70vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        .register-wrapper {
+            margin-top: 8vh;
+            max-width: 500px;
+            width: 100%;
         }
-        .draw-container {
-            margin-bottom: 2rem;
-            opacity: 0.7;
+
+        .register-title {
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 0.5rem;
+        }
+        /* Ajuste para que los labels se vean consistentes con el Login */
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6c757d;
+            text-transform: uppercase;
         }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
-        <div class="register-placeholder">
-            <div class="draw-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-person-plus text-secondary" viewBox="0 0 16 16">
-                  <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                </svg>
+    <div class="container d-flex justify-content-center">
+        <div class="register-wrapper">
+
+            <div class="text-center mb-5">
+                <h2 class="register-title">Crear Cuenta</h2>
+                <p class="text-muted">Completa los datos para registrarte en el sistema</p>
             </div>
-            
-            <h1 class="display-6 fw-bold text-dark">Área de Registro</h1>
-            <p class="text-muted fs-5 mb-4">Acá estaría el formulario para crear tu nueva cuenta.</p>
-            
-            <div class="d-flex gap-3">
-                <a href="Login.aspx" class="btn btn-dark px-4">Ir al Login</a>
-                <a href="Home.aspx" class="btn btn-outline-secondary px-4">Volver al Home</a>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nombre</label>
+                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Juan"></asp:TextBox>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Apellido</label>
+                    <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Pérez"></asp:TextBox>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Email / Usuario</label>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="usuario@correo.com" TextMode="Email"></asp:TextBox>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Contraseña</label>
+                    <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" TextMode="Password" placeholder="••••••••"></asp:TextBox>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Confirmar</label>
+                    <asp:TextBox ID="txtPassConfirmar" runat="server" CssClass="form-control" TextMode="Password" placeholder="••••••••"></asp:TextBox>
+                </div>
+
+                <div class="col-12 d-grid mt-4">
+                    <asp:Button ID="btnRegistrar" runat="server" Text="Registrarse" CssClass="btn btn-dark btn-lg shadow-sm" OnClick="btnRegistrar_Click" />
+                </div>
             </div>
+
+            <div class="text-center mt-4">
+                <p class="small text-muted">¿Ya tienes una cuenta? <a href="Login.aspx" class="text-primary text-decoration-none fw-bold">Inicia sesión aquí</a></p>
+            </div>
+
         </div>
     </div>
 </asp:Content>
