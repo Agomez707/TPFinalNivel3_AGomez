@@ -13,7 +13,6 @@
             color: #212529;
             margin-bottom: 0.5rem;
         }
-        /* Ajuste para que los labels se vean consistentes con el Login */
         .form-label {
             font-size: 0.85rem;
             font-weight: 600;

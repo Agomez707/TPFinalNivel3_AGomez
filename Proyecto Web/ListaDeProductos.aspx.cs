@@ -15,6 +15,12 @@ namespace Proyecto_Web
         public bool FiltroAvanzado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (!Seguridad.esAdmin(Session["usuario"]))
+            {
+                Session.Add("error", "Se requieren permisos de Admin para ver esta pantalla");
+                Response.Redirect("error.aspx", false);
+            }
             ArticuloNegocio articulo = new ArticuloNegocio();
 
             FiltroAvanzado = chkAvanzado.Checked;

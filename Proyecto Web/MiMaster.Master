@@ -47,13 +47,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="Home.aspx">Home</a>
                         </li>
+                        <% if (Negocio.Seguridad.esAdmin(Session["usuario"]))
+                            { %>
                         <li class="nav-item">
                             <a class="nav-link" href="ListaDeProductos.aspx">Productos</a>
                         </li>
+                        <% } %>
                     </ul>
 
                     <ul class="navbar-nav ms-auto">
-                        <% if (Session["usuario"] == null)
+                        <% if (!Negocio.Seguridad.sesionActiva(Session["usuario"]))
                             { %>
                         <li class="nav-item">
                             <a class="nav-link" href="Login.aspx">Login</a>
@@ -62,13 +65,13 @@
                             <a class="nav-link" href="Registro.aspx">Registrarse</a>
                         </li>
                         <% }
-                        else
-                        { %>
+                            else
+                            { %>
                         <li class="nav-item">
                             <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="nav-link" OnClick="btnCerrarSesion_Click">Cerrar Sesión</asp:LinkButton>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="Perfil.aspx">Hola, <%= ((Dominio.Usuario)Session["usuario"]).Nombre %></a>
+                            <a class="nav-link fw-bold text-white" href="Perfil.aspx">Mi Perfil</a>
                         </li>
                         <% } %>
                     </ul>

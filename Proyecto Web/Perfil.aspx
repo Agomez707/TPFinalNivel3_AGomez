@@ -1,41 +1,52 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="Proyecto_Web.Perfil" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .profile-placeholder {
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .icon-circle {
-            width: 100px;
-            height: 100px;
-            background-color: #f8f9fa;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: #6c757d;
-            font-size: 2.5rem;
-            border: 2px dashed #dee2e6;
+        .img-perfil {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
         }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
-        <div class="profile-placeholder">
-            <div class="icon-circle">
-                <i class="bi bi-person"></i> 👤
+    <h2 class="mb-4">Mi Perfil</h2>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="mb-3">
+                <asp:Image ID="imgNuevoPerfil" runat="server" 
+                    CssClass="img-fluid rounded-circle shadow img-perfil"
+                    ImageUrl="https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/gettyimages-155439315-612x612.jpg" />
             </div>
-            <h2 class="fw-bold text-dark">Área de Perfil</h2>
-            <p class="text-muted fs-5">Acá próximamente la información de tu perfil.</p>
-            
-            <div class="mt-4">
-                <a href="Home.aspx" class="btn btn-outline-primary">Volver al Inicio</a>
+            <div class="mb-3">
+                <label class="form-label">Cambiar Imagen</label>
+                <input type="file" id="txtImagen" runat="server" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Email (Usuario)</label>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Nombre</label>
+                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Apellido</label>
+                    <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <asp:TextBox ID="txtFechaNacimiento" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                </div>
+                
+                <div class="col-12 mt-4">
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cambios" OnClick="btnGuardar_Click" CssClass="btn btn-primary" />
+                    <a href="Home.aspx" class="btn btn-secondary">Volver</a>
+                </div>
             </div>
         </div>
     </div>

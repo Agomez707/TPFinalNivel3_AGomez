@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
 using Negocio;
 
 namespace Proyecto_Web
@@ -12,11 +13,29 @@ namespace Proyecto_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Seguridad.sesionActiva(Session["Usuario"]))
+            if (!IsPostBack)
             {
-                Session.Add("error", "Debes loguearte para ingresar acá");
-                Response.Redirect("error.aspx", false);
+                if (Seguridad.sesionActiva(Session["Usuario"]))
+                {
+                    Usuario user = (Usuario)Session["Usuario"];
+
+                    txtEmail.Text = user.Email;
+                    txtApellido.Text = user.Apellido;
+                    txtNombre.Text = user.Nombre;
+
+                }
+                else
+                {
+                    Session.Add("error", "Debes loguearte para ingresar acá");
+                    Response.Redirect("error.aspx", false);
+                }
             }
         }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
