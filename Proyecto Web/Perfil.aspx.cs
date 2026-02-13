@@ -22,6 +22,9 @@ namespace Proyecto_Web
                     txtEmail.Text = user.Email;
                     txtApellido.Text = user.Apellido;
                     txtNombre.Text = user.Nombre;
+                    txtFechaNacimiento.Text = user.FechaNacimiento.ToString("yyyy-MM-dd");
+                    if (!string.IsNullOrEmpty(user.ImagenPerfil))
+                        imgNuevoPerfil.ImageUrl = "~/Imagenes/Perfil/" + user.ImagenPerfil;
 
                 }
                 else
@@ -34,7 +37,30 @@ namespace Proyecto_Web
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                Usuario usuario = (Usuario)Session["usuario"];
 
+                if (txtImagen.PostedFile.FileName != "")
+                {
+                    string ruta = Server.MapPath("./Imagenes/Perfil/");
+                    txtImagen.PostedFile.SaveAs(ruta + usuario.Id + "_perfil.jpg");
+                    usuario.ImagenPerfil = usuario.Id + "_perfil.jpg";
+                }
+                
+                usuario.Nombre = txtNombre.Text;
+                usuario.Apellido = txtApellido.Text;
+                usuario.FechaNacimiento = DateTime.Parse(txtFechaNacimiento.Text);
+
+                negocio.Actualizar(usuario);
+
+
+            }
+            catch(Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
         }
 
     }

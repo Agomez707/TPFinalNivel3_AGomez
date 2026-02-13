@@ -10,6 +10,31 @@ namespace Negocio
 {
     public class UsuarioNegocio
     {
+        public void Actualizar(Usuario user)
+        {
+            AccesoADatos datos = new AccesoADatos();
+
+            try
+            {
+                datos.setearProcedimiento("ActualizarUser");
+                datos.setearParametro("@imagenPerfil", (object)user.ImagenPerfil ?? DBNull.Value);
+                datos.setearParametro("@nombre", user.Nombre);
+                datos.setearParametro("@apellido", user.Apellido);
+                datos.setearParametro("@fechaNacimiento", user.FechaNacimiento);
+                datos.setearParametro("@id", user.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public bool Loguear(Usuario usuario)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -34,6 +59,9 @@ namespace Negocio
 
                     if (!(datos.Lector["imagenPerfil"] is DBNull))
                         usuario.ImagenPerfil = (string)datos.Lector["imagenPerfil"];
+
+                    if (!(datos.Lector["fechaNacimiento"] is DBNull))
+                        usuario.FechaNacimiento = DateTime.Parse(datos.Lector["fechaNacimiento"].ToString());
 
                     return true;
                 }
