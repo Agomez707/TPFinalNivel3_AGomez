@@ -60,6 +60,7 @@ namespace Proyecto_Web
             catch(Exception ex)
             {
                 Session.Add("error", ex.ToString());
+                Response.Redirect("error.aspx", false);
             }
         }
 

@@ -86,7 +86,7 @@ namespace Proyecto_Web
             catch (Exception ex)
             {
                 Session.Add("error", ex);
-                throw;
+                Response.Redirect("error.aspx", false);
             }
         }
 
