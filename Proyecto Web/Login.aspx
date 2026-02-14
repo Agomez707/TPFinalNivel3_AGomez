@@ -32,13 +32,13 @@
             <div class="mb-3">
                 <label class="form-label text-secondary small fw-bold">USUARIO</label>
                 <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control form-control-lg"
-                    placeholder="Nombre de usuario"></asp:TextBox>
+                    placeholder="Nombre de usuario" REQUIRED></asp:TextBox>
             </div>
 
             <div class="mb-4">
                 <label class="form-label text-secondary small fw-bold">CONTRASEÑA</label>
                 <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control form-control-lg"
-                    TextMode="Password" placeholder="Contraseña"></asp:TextBox>
+                    TextMode="Password" placeholder="Contraseña" REQUIRED></asp:TextBox>
             </div>
 
             <div class="d-grid shadow-sm">

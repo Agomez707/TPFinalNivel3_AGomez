@@ -14,11 +14,11 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Código de Artículo</label>
-                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" REQUIRED></asp:TextBox>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Nombre</label>
-                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" REQUIRED></asp:TextBox>
                     </div>
                     <div class="col-12">
                         <label class="form-label">Descripción</label>

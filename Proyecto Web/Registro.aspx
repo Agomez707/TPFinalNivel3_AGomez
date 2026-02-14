@@ -34,25 +34,25 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Nombre</label>
-                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Juan"></asp:TextBox>
+                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Juan" REQUIRED ></asp:TextBox>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Apellido</label>
-                    <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Pérez"></asp:TextBox>
+                    <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Pérez" REQUIRED></asp:TextBox>
                 </div>
 
                 <div class="col-12">
                     <label class="form-label">Email / Usuario</label>
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="usuario@correo.com" TextMode="Email"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="usuario@correo.com" TextMode="Email" REQUIRED></asp:TextBox>
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">Contraseña</label>
-                    <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" TextMode="Password" placeholder="••••••••"></asp:TextBox>
+                    <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" TextMode="Password" placeholder="••••••••" REQUIRED></asp:TextBox>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Confirmar</label>
-                    <asp:TextBox ID="txtPassConfirmar" runat="server" CssClass="form-control" TextMode="Password" placeholder="••••••••"></asp:TextBox>
+                    <asp:TextBox ID="txtPassConfirmar" runat="server" CssClass="form-control" TextMode="Password" placeholder="••••••••" REQUIRED></asp:TextBox>
                 </div>
 
                 <div class="col-12 d-grid mt-4">

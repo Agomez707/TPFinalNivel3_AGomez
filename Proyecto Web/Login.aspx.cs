@@ -23,19 +23,28 @@ namespace Proyecto_Web
 
             try
             {
-                usuario.Email = txtUsuario.Text;
-                usuario.Pass = txtPassword.Text;
-
-                if (negocio.Loguear(usuario))
+                if (txtUsuario.Text != "" || txtPassword.Text != "")
                 {
-                    Session.Add("usuario", usuario);
-                    Response.Redirect("Perfil.aspx", false);
+                    usuario.Email = txtUsuario.Text;
+                    usuario.Pass = txtPassword.Text;
+
+                    if (negocio.Loguear(usuario))
+                    {
+                        Session.Add("usuario", usuario);
+                        Response.Redirect("Perfil.aspx", false);
+                    }
+                    else
+                    {
+                        Session.Add("error", "User o Contraseña incorrectos");
+                        Response.Redirect("Error.aspx", false);
+                    }
                 }
                 else
                 {
-                    Session.Add("error", "User o Pass incorrectos");
+                    Session.Add("error", "Por Favor cargar User y Contraseña");
                     Response.Redirect("Error.aspx", false);
                 }
+
 
 
             }

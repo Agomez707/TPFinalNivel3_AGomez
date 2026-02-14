@@ -23,16 +23,26 @@ namespace Proyecto_Web
                 Usuario User = new Usuario();
                 UsuarioNegocio negocio = new UsuarioNegocio();
 
-                User.Email = txtEmail.Text;
-                User.Pass = txtPass.Text;
-                User.Nombre = txtNombre.Text;
-                User.Apellido = txtApellido.Text;
-                //Registro mi nuevo Uusario
-                User.Id = negocio.RegistrarNuevo(User);
+                if (txtEmail.Text != "" && txtNombre.Text != "" && txtApellido.Text != "" && txtPass.Text != "")
+                {
+                    User.Email = txtEmail.Text;
+                    User.Pass = txtPass.Text;
+                    User.Nombre = txtNombre.Text;
+                    User.Apellido = txtApellido.Text;
+                    //Registro mi nuevo Uusario
+                    User.Id = negocio.RegistrarNuevo(User);
 
-                //logueo el usuario nuevo
-                Session.Add("usuario", User);
-                Response.Redirect("Perfil.aspx", false);
+                    //logueo el usuario nuevo
+                    Session.Add("usuario", User);
+                    Response.Redirect("Perfil.aspx", false);
+                }
+                else
+                {
+                    Session.Add("error", "Tenes que cargar todos los campos para poder registrarte");
+                    Response.Redirect("error.aspx", false);
+                }
+
+
 
             }
             catch (Exception ex)

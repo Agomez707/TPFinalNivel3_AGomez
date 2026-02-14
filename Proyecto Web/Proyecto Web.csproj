@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="DetalleArticulo.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
     <Content Include="ListaDeProductos.aspx" />
     <Content Include="Login.aspx" />
@@ -90,6 +91,9 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

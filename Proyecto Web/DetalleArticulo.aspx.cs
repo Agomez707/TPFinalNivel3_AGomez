@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
 
+
 namespace Proyecto_Web
 {
     public partial class DetalleArticulo : System.Web.UI.Page
@@ -15,15 +16,14 @@ namespace Proyecto_Web
 
         public string ImagenUrl { get; set; }
         protected void Page_Load(object sender, EventArgs e)
-        {
-
-            
+        { 
 
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             CategoriasNegocio categoriasNegocio = new CategoriasNegocio();
 
             try
             {
+                //Usuario user = (Session["usuario"] != null) ? (Usuario)Session["usuario"] : null;
                 //Configuracion inicial de la pantalla
                 if (!IsPostBack)
                 {
@@ -37,7 +37,17 @@ namespace Proyecto_Web
                     ddlMarca.DataTextField = "Descripcion";
                     ddlMarca.DataBind();
 
-                    btnEliminar.Visible = false;
+                    if (!Seguridad.esAdmin(Session["usuario"]))
+                    {
+                        desactivarControles();
+                        btnEliminar.Visible = false;
+                        btnAceptar.Visible = false;
+                    }
+                    else
+                    {
+                        btnAceptar.Visible = true;
+                    }
+                    
                 }
 
                 //Configuracion si estas modificiando
@@ -59,20 +69,29 @@ namespace Proyecto_Web
 
                     txtImagenUrl_TextChanged(sender, e);
 
-                    btnEliminar.Visible = true;
+                    btnEliminar.Visible = Seguridad.esAdmin(Session["usuario"]);
 
                 }
-
-
 
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex);
+                Session.Add("error", ex.ToString());
                 Response.Redirect("error.aspx", false);
             }
 
 
+        }
+
+        private void desactivarControles()
+        {
+            txtCodigo.Enabled = false;
+            txtNombre.Enabled = false;
+            txtDescripcion.Enabled = false;
+            txtPrecio.Enabled = false;
+            txtImagenUrl.Enabled = false;
+            ddlMarca.Enabled = false;
+            ddlCategoria.Enabled = false;
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
@@ -82,11 +101,22 @@ namespace Proyecto_Web
                 Articulo nuevo = new Articulo();
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
 
+                if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text))
+                {
+                    Session.Add("error", "Rellenar campos obligatorios");
+                    Response.Redirect("error.aspx", false);
+                }
+
                 nuevo.Codigo = txtCodigo.Text;
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-                nuevo.Precio = float.Parse(txtPrecio.Text);
                 nuevo.ImagenUrl = txtImagenUrl.Text;
+
+                float precio;
+                if (float.TryParse(txtPrecio.Text, out precio))
+                    nuevo.Precio = precio;
+                else
+                    nuevo.Precio = 0;
 
                 nuevo.Marca = new Marca();
                 nuevo.Marca.Id = int.Parse(ddlMarca.SelectedValue);
@@ -98,12 +128,12 @@ namespace Proyecto_Web
                 {
                     nuevo.Id = int.Parse(Request.QueryString["id"].ToString());
                     articuloNegocio.modificarConSP(nuevo); 
-                    Response.Redirect("ListaDeProductos.aspx?msg=updated");
+                    Response.Redirect("ListaDeProductos.aspx?msg=updated", false);
                 }
                 else
                 {
                     articuloNegocio.agregarConSP(nuevo);
-                    Response.Redirect("ListaDeProductos.aspx?msg=added");
+                    Response.Redirect("ListaDeProductos.aspx?msg=added", false);
                 }
 
                 //Response.Redirect("ListaDeProductos.aspx");
@@ -127,7 +157,7 @@ namespace Proyecto_Web
                 if (Request.QueryString["id"] != null)
                 {
                     articuloNegocio.eliminar(int.Parse(Request.QueryString["id"]));
-                    Response.Redirect("ListaDeProductos.aspx?msg=deleted");
+                    Response.Redirect("ListaDeProductos.aspx?msg=deleted", false);
                 }
 
             }
