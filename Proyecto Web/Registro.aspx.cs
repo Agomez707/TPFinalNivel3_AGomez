@@ -23,7 +23,13 @@ namespace Proyecto_Web
                 Usuario User = new Usuario();
                 UsuarioNegocio negocio = new UsuarioNegocio();
 
-                if (txtEmail.Text != "" && txtNombre.Text != "" && txtApellido.Text != "" && txtPass.Text != "")
+                if (txtPass.Text != txtPassConfirmar.Text)
+                {
+                    Session.Add("error", "Las contraseñas no coinciden");
+                    Response.Redirect("error.aspx", false);
+                }
+
+                if (txtEmail.Text != "" && txtNombre.Text != "" && txtApellido.Text != "" && txtPass.Text != "" && txtPassConfirmar.Text != "")
                 {
                     User.Email = txtEmail.Text;
                     User.Pass = txtPass.Text;
