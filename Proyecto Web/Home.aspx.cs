@@ -17,11 +17,11 @@ namespace Proyecto_Web
             try
             {
                 ArticuloNegocio articulo = new ArticuloNegocio();
-                ListaArticulos = articulo.listarConSP();
+                ListaArticulos = articulo.listar();
             }
             catch (Exception ex)
             {
-                Session.Add("error", "Base de datos no disponible");
+                Session.Add("error", ex.ToString());
                 Response.Redirect("error.aspx", false);
             }
 

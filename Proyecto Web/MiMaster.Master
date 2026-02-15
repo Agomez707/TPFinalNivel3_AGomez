@@ -86,7 +86,7 @@
 
         <footer class="text-center mt-auto">
             <div class="container">
-                <p class="text-muted mb-0">© <%= DateTime.Now.Year %> - Mi Primer Proyecto ASP.NET</p>
+                <p class="text-muted mb-0">© <%= DateTime.Now.Year %> - TPFinalNivel3_AGomez </p>
             </div>
         </footer>
 

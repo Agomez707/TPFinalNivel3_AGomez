@@ -16,7 +16,8 @@ namespace Negocio
 
             try
             {
-                datos.setearProcedimiento("ActualizarUser");
+                //datos.setearProcedimiento("ActualizarUser");
+                datos.setearConsulta("update USERS set nombre = @nombre, apellido = @apellido, imagenPerfil = @imagenPerfil, fechaNacimiento = @fechaNacimiento where id = @id");
                 datos.setearParametro("@imagenPerfil", (object)user.ImagenPerfil ?? DBNull.Value);
                 datos.setearParametro("@nombre", user.Nombre);
                 datos.setearParametro("@apellido", user.Apellido);
@@ -91,7 +92,8 @@ namespace Negocio
 
             try
             {
-                datos.setearProcedimiento("RegistrarNuevoUser");
+                //datos.setearProcedimiento("RegistrarNuevoUser");
+                datos.setearConsulta("insert into USERS (email, pass, nombre, apellido, admin) output inserted.id values (@email, @pass, @nombre, @apellido, 0)");
                 datos.setearParametro("@email", NuevoUser.Email);
                 datos.setearParametro("@pass", NuevoUser.Pass);
                 datos.setearParametro("@nombre", NuevoUser.Nombre);

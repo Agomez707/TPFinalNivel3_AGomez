@@ -26,7 +26,7 @@ namespace Proyecto_Web
             FiltroAvanzado = chkAvanzado.Checked;
             if (!IsPostBack)
             {
-                Session.Add("ListaArticulos", articulo.listarConSP());
+                Session.Add("ListaArticulos", articulo.listar());
                 dgvArticulos.DataSource = Session["ListaArticulos"];
                 dgvArticulos.DataBind();
             }
