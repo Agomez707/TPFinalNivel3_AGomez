@@ -101,6 +101,12 @@ namespace Proyecto_Web
                 Articulo nuevo = new Articulo();
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
 
+                if (!Seguridad.esAdmin(Session["usuario"]))
+                {
+                    Response.Redirect("Login.aspx", false);
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text))
                 {
                     Session.Add("error", "Rellenar campos obligatorios");

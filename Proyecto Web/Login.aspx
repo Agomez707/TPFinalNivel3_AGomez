@@ -17,7 +17,40 @@
             color: #333;
             margin-bottom: 1.5rem;
         }
+        .validacion {
+            color: red;
+            font-size: 10px;
+        }
     </style>
+
+    <script>
+        function validar() {
+
+            const txtUsuario = document.getElementById("<%= txtUsuario.ClientID %>");
+            const txtPassword = document.getElementById("<%= txtPassword.ClientID %>");
+
+            // Validar Usuario
+            if (txtUsuario.value.trim() === "") {
+                txtUsuario.classList.add("is-invalid");
+                return false;
+            } else {
+                txtUsuario.classList.remove("is-invalid");
+                txtUsuario.classList.add("is-valid");
+            }
+
+            // Validar Password
+            if (txtPassword.value.trim() === "") {
+                txtPassword.classList.add("is-invalid");
+                return false;
+            } else {
+                txtPassword.classList.remove("is-invalid");
+                txtPassword.classList.add("is-valid");
+            }
+
+            return true;
+        }
+
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -30,20 +63,27 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label text-secondary small fw-bold">USUARIO</label>
+                <label class="form-label text-secondary small fw-bold" >USUARIO</label>
                 <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control form-control-lg"
-                    placeholder="Nombre de usuario" REQUIRED></asp:TextBox>
+                    placeholder="Nombre de usuario" oninput="this.classList.remove('is-invalid')"></asp:TextBox>
+                <div class="invalid-feedback">
+                    Por favor, ingresa tu usuario.
+                </div>
+
             </div>
 
             <div class="mb-4">
-                <label class="form-label text-secondary small fw-bold">CONTRASEÑA</label>
+                <label class="form-label text-secondary small fw-bold" >CONTRASEÑA</label>
                 <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control form-control-lg"
-                    TextMode="Password" placeholder="Contraseña" REQUIRED></asp:TextBox>
+                    TextMode="Password" placeholder="Contraseña" oninput="this.classList.remove('is-invalid')"></asp:TextBox>
+                <div class="invalid-feedback">
+                    Debes introducir una contraseña.
+                </div>
             </div>
 
             <div class="d-grid shadow-sm">
                 <asp:Button ID="btnLogin" runat="server" Text="Entrar"
-                    CssClass="btn btn-dark btn-lg" OnClick="btnLogin_Click" />
+                    CssClass="btn btn-dark btn-lg" OnClientClick="return validar();" OnClick="btnLogin_Click" />
             </div>
 
             <div class="text-center mt-4">
