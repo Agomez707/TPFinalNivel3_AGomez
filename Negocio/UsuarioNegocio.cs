@@ -34,7 +34,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar Actualizar el Usuario en la base de datos.", ex);
             }
             finally
             {
@@ -77,7 +77,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar loguear el Usuario.", ex);
             }
             finally
             {
@@ -101,7 +101,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar registrar el nuevo Usuario.", ex);
             }
             finally 
             { 

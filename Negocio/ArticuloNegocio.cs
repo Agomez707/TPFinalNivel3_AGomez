@@ -53,7 +53,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar obtener la lista de artículos desde la base de datos.", ex);
             }
             finally
             {
@@ -100,7 +100,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar obtener la lista de artículos desde la base de datos.", ex);
             }
         }
 
@@ -123,7 +123,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar agregar artículos a la base de datos.", ex);
             }
             finally 
             { 
@@ -151,7 +151,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar agregar artículos a la base de datos.", ex);
             }
             finally
             {
@@ -180,7 +180,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar modificar artículo en la base de datos.", ex);
             }
             finally
             {
@@ -208,7 +208,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar modificar artículo en la base de datos.", ex);
             }
             finally
             {
@@ -287,7 +287,7 @@ namespace Negocio
             }
             catch(Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar filtrar artículos en la base de datos.", ex);
             }
         }
 
@@ -313,7 +313,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar eliminar artículo en la base de datos.", ex);
             }
            
         }

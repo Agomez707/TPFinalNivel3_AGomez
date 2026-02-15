@@ -14,8 +14,17 @@ namespace Proyecto_Web
         public List<Articulo> ListaArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio articulo = new ArticuloNegocio();
-            ListaArticulos = articulo.listarConSP();
+            try
+            {
+                ArticuloNegocio articulo = new ArticuloNegocio();
+                ListaArticulos = articulo.listarConSP();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", "Base de datos no disponible");
+                Response.Redirect("error.aspx", false);
+            }
+
             
         }
     }

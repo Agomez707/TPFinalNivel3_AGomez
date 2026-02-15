@@ -33,7 +33,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al intentar cargar Categorias desde la base de datos.", ex);
             }
             finally
             {
