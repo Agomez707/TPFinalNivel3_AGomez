@@ -1,6 +1,40 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="DetalleArticulo.aspx.cs" Inherits="Proyecto_Web.DetalleArticulo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .validacion {
+            color: red;
+            font-size: 10px;
+        }
+    </style>
+     <script>
+     function validar() {
+
+         const txtCodigo = document.getElementById("<%= txtCodigo.ClientID %>");
+         const txtNombre = document.getElementById("<%= txtNombre.ClientID %>");
+         let valido = true;
+         // Validar Codigo de Producto
+         if (txtCodigo.value.trim() === "") {
+             txtCodigo.classList.add("is-invalid");
+             valido = false;
+         } else {
+             txtCodigo.classList.remove("is-invalid");
+             txtCodigo.classList.add("is-valid");
+         }
+
+         // Validar Nombre
+         if (txtNombre.value.trim() === "") {
+             txtNombre.classList.add("is-invalid");
+             valido = false;
+         } else {
+             txtNombre.classList.remove("is-invalid");
+             txtNombre.classList.add("is-valid");
+         }
+
+         return valido;
+     }
+
+     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -14,11 +48,18 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Código de Artículo</label>
-                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" REQUIRED></asp:TextBox>
+                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" oninput="this.classList.remove('is-invalid')"></asp:TextBox>
+                        <div class="invalid-feedback">
+                            Debes introducir un Código de Artículo.
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Nombre</label>
-                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" REQUIRED></asp:TextBox>
+                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" oninput="this.classList.remove('is-invalid')"></asp:TextBox>
+                        <div class="invalid-feedback">
+                            Debes introducir un Nombre de Artículo.
+                        </div>
+
                     </div>
                     <div class="col-12">
                         <label class="form-label">Descripción</label>
@@ -64,8 +105,9 @@
         <div class="row mt-4 mb-5">
             <div class="col-12 d-flex justify-content-between">
                 <div>
-                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
-                    <a href="ListaDeProductos.aspx" class="btn btn-secondary">Cancelar</a>
+                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClientClick="return validar();" OnClick="btnAceptar_Click" />
+                    <button type="button" class="btn btn-secondary" onclick="history.back();">Cancelar</button>
+                   
                 </div>
 
                 <div>

@@ -46,7 +46,6 @@
 
                         <div class="col-12 mt-4">
                             <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cambios" OnClick="btnGuardar_Click" CssClass="btn btn-primary" />
-                            <a href="Home.aspx" class="btn btn-secondary">Volver</a>
                         </div>
                     </div>
                 </div>

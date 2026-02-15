@@ -20,7 +20,14 @@ namespace Negocio
                 datos.setearParametro("@imagenPerfil", (object)user.ImagenPerfil ?? DBNull.Value);
                 datos.setearParametro("@nombre", user.Nombre);
                 datos.setearParametro("@apellido", user.Apellido);
-                datos.setearParametro("@fechaNacimiento", user.FechaNacimiento);
+                if (user.FechaNacimiento < new DateTime(1753, 1, 1))
+                {
+                    datos.setearParametro("@fechaNacimiento", DBNull.Value);
+                }
+                else
+                {
+                    datos.setearParametro("@fechaNacimiento", user.FechaNacimiento);
+                }
                 datos.setearParametro("@id", user.Id);
 
                 datos.ejecutarAccion();

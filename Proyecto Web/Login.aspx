@@ -28,11 +28,11 @@
 
             const txtUsuario = document.getElementById("<%= txtUsuario.ClientID %>");
             const txtPassword = document.getElementById("<%= txtPassword.ClientID %>");
-
+            let valido = true;
             // Validar Usuario
             if (txtUsuario.value.trim() === "") {
                 txtUsuario.classList.add("is-invalid");
-                return false;
+                valido = false;
             } else {
                 txtUsuario.classList.remove("is-invalid");
                 txtUsuario.classList.add("is-valid");
@@ -41,13 +41,13 @@
             // Validar Password
             if (txtPassword.value.trim() === "") {
                 txtPassword.classList.add("is-invalid");
-                return false;
+                valido = false;
             } else {
                 txtPassword.classList.remove("is-invalid");
                 txtPassword.classList.add("is-valid");
             }
 
-            return true;
+            return valido;
         }
 
     </script>
