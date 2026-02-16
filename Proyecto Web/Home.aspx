@@ -83,6 +83,39 @@
             letter-spacing: 0.5px;
             transition: all 0.2s;
         }
+
+        .fav-container {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 10;
+    }
+
+    .btn-fav {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(5px);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff4757;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-fav:hover {
+        background: #ff4757;
+        color: white;
+        transform: scale(1.1);
+    }
+    
+    .card-modern {
+        position: relative;
+    }
     </style>
 </asp:Content>
 
