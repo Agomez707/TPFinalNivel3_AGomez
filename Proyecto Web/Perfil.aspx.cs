@@ -22,7 +22,7 @@ namespace Proyecto_Web
                     txtEmail.Text = user.Email;
                     txtApellido.Text = user.Apellido;
                     txtNombre.Text = user.Nombre;
-                    txtFechaNacimiento.Text = user.FechaNacimiento.ToString("yyyy-MM-dd");
+                    //txtFechaNacimiento.Text = user.FechaNacimiento.ToString("yyyy-MM-dd");
                     //if (!string.IsNullOrEmpty(user.ImagenPerfil))
                     //    imgNuevoPerfil.ImageUrl = "~/Imagenes/Perfil/" + user.ImagenPerfil;
                     txtImagenUrl.Text = user.ImagenPerfil;
@@ -54,7 +54,7 @@ namespace Proyecto_Web
                 
                 usuario.Nombre = txtNombre.Text;
                 usuario.Apellido = txtApellido.Text;
-                usuario.FechaNacimiento = DateTime.Parse(txtFechaNacimiento.Text);
+                //usuario.FechaNacimiento = DateTime.Parse(txtFechaNacimiento.Text);
                 if (!string.IsNullOrWhiteSpace(txtImagenUrl.Text))
                     usuario.ImagenPerfil = txtImagenUrl.Text;
 

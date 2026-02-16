@@ -43,10 +43,10 @@
                             <label class="form-label">Apellido</label>
                             <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="col-md-6">
+                        <%--<div class="col-md-6">
                             <label class="form-label">Fecha de Nacimiento</label>
                             <asp:TextBox ID="txtFechaNacimiento" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                        </div>
+                        </div>--%>
 
                         <div class="col-12 mt-4">
                             <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cambios" OnClick="btnGuardar_Click" CssClass="btn btn-primary" />
