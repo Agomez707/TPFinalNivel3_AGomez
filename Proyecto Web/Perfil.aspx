@@ -19,9 +19,13 @@
                             CssClass="img-fluid rounded-circle shadow img-perfil"
                             ImageUrl="https://cdn-icons-png.freepik.com/512/12225/12225935.png" />
                     </div>
-                    <div class="mb-3">
+                    <%--<div class="mb-3">
                         <label class="form-label">Cambiar Imagen</label>
                         <input type="file" id="txtImagen" runat="server" class="form-control" />
+                    </div> --%>
+                    <div class="mb-3">
+                        <label class="form-label">URL de la Imagen</label>
+                        <asp:TextBox ID="txtImagenUrl" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged"></asp:TextBox>
                     </div>
                 </div>
 

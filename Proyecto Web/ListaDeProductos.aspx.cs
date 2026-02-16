@@ -82,6 +82,7 @@ namespace Proyecto_Web
                 string filtro = txtFiltroAvanzado.Text;
                 dgvArticulos.DataSource = articuloNegocio.filtrar(campo, criterio, filtro);
                 dgvArticulos.DataBind();
+                
             }
             catch (Exception ex)
             {
@@ -92,6 +93,9 @@ namespace Proyecto_Web
 
         protected void btnResetFiltro_Click(object sender, EventArgs e)
         {
+            ddlCampo.SelectedIndex = 0;
+            ddlCriterio.Items.Clear();
+            txtFiltroAvanzado.Text = "";
             dgvArticulos.DataSource = Session["ListaArticulos"];
             dgvArticulos.DataBind();
         }

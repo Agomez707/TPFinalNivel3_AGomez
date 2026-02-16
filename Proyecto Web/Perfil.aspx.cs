@@ -23,8 +23,11 @@ namespace Proyecto_Web
                     txtApellido.Text = user.Apellido;
                     txtNombre.Text = user.Nombre;
                     txtFechaNacimiento.Text = user.FechaNacimiento.ToString("yyyy-MM-dd");
-                    if (!string.IsNullOrEmpty(user.ImagenPerfil))
-                        imgNuevoPerfil.ImageUrl = "~/Imagenes/Perfil/" + user.ImagenPerfil;
+                    //if (!string.IsNullOrEmpty(user.ImagenPerfil))
+                    //    imgNuevoPerfil.ImageUrl = "~/Imagenes/Perfil/" + user.ImagenPerfil;
+                    txtImagenUrl.Text = user.ImagenPerfil;
+                    txtImagenUrl_TextChanged(sender,e);
+                    
 
                 }
                 else
@@ -42,16 +45,18 @@ namespace Proyecto_Web
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 Usuario usuario = (Usuario)Session["usuario"];
 
-                if (txtImagen.PostedFile.FileName != "")
-                {
-                    string ruta = Server.MapPath("./Imagenes/Perfil/");
-                    txtImagen.PostedFile.SaveAs(ruta + usuario.Id + "_perfil.jpg");
-                    usuario.ImagenPerfil = usuario.Id + "_perfil.jpg";
-                }
+                //if (txtImagen.PostedFile.FileName != "")
+                //{
+                //   string ruta = Server.MapPath("./Imagenes/Perfil/");
+                //    txtImagen.PostedFile.SaveAs(ruta + usuario.Id + "_perfil.jpg");
+                //    usuario.ImagenPerfil = usuario.Id + "_perfil.jpg";
+                //}
                 
                 usuario.Nombre = txtNombre.Text;
                 usuario.Apellido = txtApellido.Text;
                 usuario.FechaNacimiento = DateTime.Parse(txtFechaNacimiento.Text);
+                if (!string.IsNullOrWhiteSpace(txtImagenUrl.Text))
+                    usuario.ImagenPerfil = txtImagenUrl.Text;
 
                 negocio.Actualizar(usuario);
 
@@ -62,6 +67,17 @@ namespace Proyecto_Web
                 Session.Add("error", ex.ToString());
                 Response.Redirect("error.aspx", false);
             }
+        }
+
+        protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
+        {
+            imgNuevoPerfil.ImageUrl = txtImagenUrl.Text;
+
+            if (string.IsNullOrWhiteSpace(txtImagenUrl.Text))
+            {
+                imgNuevoPerfil.ImageUrl = "https://cdn-icons-png.freepik.com/512/9706/9706583.png";
+            }
+
         }
 
     }

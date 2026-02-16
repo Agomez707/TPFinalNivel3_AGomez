@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Imagenes\Perfil\" />
+    <Folder Include="Script BD\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

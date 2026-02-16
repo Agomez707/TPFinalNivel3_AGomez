@@ -17,19 +17,20 @@ namespace Negocio
             try
             {
                 //datos.setearProcedimiento("ActualizarUser");
-                datos.setearConsulta("update USERS set nombre = @nombre, apellido = @apellido, imagenPerfil = @imagenPerfil, fechaNacimiento = @fechaNacimiento where id = @id");
-                datos.setearParametro("@imagenPerfil", (object)user.ImagenPerfil ?? DBNull.Value);
+                datos.setearConsulta("update USERS set nombre = @nombre, apellido = @apellido, urlImagenPerfil = @imagenPerfil where id = @id");
                 datos.setearParametro("@nombre", user.Nombre);
                 datos.setearParametro("@apellido", user.Apellido);
-                if (user.FechaNacimiento < new DateTime(1753, 1, 1))
-                {
-                    datos.setearParametro("@fechaNacimiento", DBNull.Value);
-                }
-                else
-                {
-                    datos.setearParametro("@fechaNacimiento", user.FechaNacimiento);
-                }
+                datos.setearParametro("@imagenPerfil", user.ImagenPerfil);
                 datos.setearParametro("@id", user.Id);
+                // if (user.FechaNacimiento < new DateTime(1753, 1, 1))
+                // {
+                // datos.setearParametro("@fechaNacimiento", DBNull.Value);
+                // }
+                //else
+                //{
+                //datos.setearParametro("@fechaNacimiento", user.FechaNacimiento);
+                //}
+
 
                 datos.ejecutarAccion();
             }
@@ -49,7 +50,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("Select id, admin, nombre, apellido, imagenPerfil, fechaNacimiento from USERS where email = @email AND pass = @pass");
+                datos.setearConsulta("Select id, admin, nombre, apellido, urlImagenPerfil from USERS where email = @email AND pass = @pass");
                 datos.setearParametro("@email",usuario.Email);
                 datos.setearParametro("@pass",usuario.Pass);
 
@@ -65,11 +66,11 @@ namespace Negocio
                     if (!(datos.Lector["apellido"] is DBNull))
                         usuario.Apellido = (string)datos.Lector["apellido"];
 
-                    if (!(datos.Lector["imagenPerfil"] is DBNull))
-                        usuario.ImagenPerfil = (string)datos.Lector["imagenPerfil"];
+                    if (!(datos.Lector["urlImagenPerfil"] is DBNull))
+                        usuario.ImagenPerfil = (string)datos.Lector["urlImagenPerfil"];
 
-                    if (!(datos.Lector["fechaNacimiento"] is DBNull))
-                        usuario.FechaNacimiento = DateTime.Parse(datos.Lector["fechaNacimiento"].ToString());
+                    //if (!(datos.Lector["fechaNacimiento"] is DBNull))
+                       // usuario.FechaNacimiento = DateTime.Parse(datos.Lector["fechaNacimiento"].ToString());
 
                     return true;
                 }

@@ -19,7 +19,7 @@ namespace Negocio
 
         public AccesoADatos()
         {
-            conexion = new SqlConnection("server=WINSER22\\SQLEXPRESS; database=CATALOGO_DB; integrated security=false; user=sa; password=Password01!");
+            conexion = new SqlConnection("workstation id=CATALOGO707.mssql.somee.com;packet size=4096;user id=agomez707_SQLLogin_1;pwd=i8hbnqs5mq;data source=CATALOGO707.mssql.somee.com;persist security info=False;initial catalog=CATALOGO707;TrustServerCertificate=True");
             comando = new SqlCommand();
         }
 

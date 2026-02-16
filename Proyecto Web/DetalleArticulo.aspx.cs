@@ -47,7 +47,12 @@ namespace Proyecto_Web
                     {
                         btnAceptar.Visible = true;
                     }
-                    
+
+                    if (Request.QueryString["id"] == null)
+                    {
+                        btnEliminar.Visible = false;
+                    }
+
                 }
 
                 //Configuracion si estas modificiando
@@ -133,12 +138,12 @@ namespace Proyecto_Web
                 if (Request.QueryString["id"] != null)
                 {
                     nuevo.Id = int.Parse(Request.QueryString["id"].ToString());
-                    articuloNegocio.modificarConSP(nuevo); 
+                    articuloNegocio.modificar(nuevo); 
                     Response.Redirect("ListaDeProductos.aspx?msg=updated", false);
                 }
                 else
                 {
-                    articuloNegocio.agregarConSP(nuevo);
+                    articuloNegocio.agregar(nuevo);
                     Response.Redirect("ListaDeProductos.aspx?msg=added", false);
                 }
 

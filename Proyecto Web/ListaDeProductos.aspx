@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="ListaDeProductos.aspx.cs" Inherits="Proyecto_Web.ListaDeProguctos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <style>
+     .validacion {
+         color: red;
+         font-size: 10px;
+     }
+ </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
@@ -33,7 +39,32 @@
                 Toastify(config).showToast();
             }
         };
-</script>
+    </script>
+
+      <script>
+        function validar() {
+
+            const ddlCampo = document.getElementById("<%= ddlCampo.ClientID %>");
+            const txtFiltroAv = document.getElementById("<%= txtFiltroAvanzado.ClientID %>");
+            let valido = true;
+
+
+            if (ddlCampo.value === "Precio") {
+
+                const soloNumeros = /^[0-9]+([.,][0-9]{1,2})?$/;
+                // Validamos si es número
+                if (txtFiltroAv.value === "" || !soloNumeros.test(txtFiltroAv.value)) {
+                    txtFiltroAv.classList.add("is-invalid");
+                    valido = false;
+                } else {
+                    txtFiltroAv.classList.remove("is-invalid");
+                    txtFiltroAv.classList.add("is-valid");
+                }
+            }
+
+            return valido;
+        }
+      </script>
 
     <asp:UpdatePanel ID="upGrilla" runat="server">
         <ContentTemplate>
@@ -79,14 +110,17 @@
                     <div class="col-3">
                         <div class="mb-3">
                             <asp:Label Text="Filtro" runat="server" />
-                            <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control" />
+                            <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control" oninput="this.classList.remove('is-invalid')"/>
+                            <div class="invalid-feedback">
+                                Debes introducir un número para Filtrar.
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3">
                         <div class="mb-3">
-                            <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />
+                            <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClientClick="return validar();" OnClick="btnBuscar_Click" />
                             <asp:Button Text="Reset Filtro" runat="server" CssClass="btn btn-secondary" ID="btnResetFiltro" OnClick ="btnResetFiltro_Click"/>
                         </div>
                     </div>
