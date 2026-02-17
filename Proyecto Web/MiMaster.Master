@@ -68,10 +68,13 @@
                             else
                             { %>
                         <li class="nav-item">
-                            <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="nav-link" OnClick="btnCerrarSesion_Click">Cerrar Sesión</asp:LinkButton>
+                            <a class="nav-link" href="Favoritos.aspx">Mis Favoritos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-bold text-white" href="Perfil.aspx">Mi Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="nav-link" OnClick="btnCerrarSesion_Click">Cerrar Sesión</asp:LinkButton>
                         </li>
                         <% } %>
                     </ul>
