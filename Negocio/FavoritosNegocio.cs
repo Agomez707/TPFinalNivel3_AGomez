@@ -45,7 +45,7 @@ namespace Negocio
             }
         }
 
-        public void Agregar(Favorito nuevoFav)
+        public void Agregar(int idUser, int idArticulo)
         {
             AccesoADatos datos = new AccesoADatos();
 
@@ -54,8 +54,8 @@ namespace Negocio
                 string consulta = "insert into FAVORITOS (IdUser, IdArticulo) values (@idUser, @idArticulo)";
 
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@idUser", nuevoFav.idUser);
-                datos.setearParametro("@idArticulo", nuevoFav.idArticulo);
+                datos.setearParametro("@idUser", idUser);
+                datos.setearParametro("@idArticulo", idArticulo);
                 datos.ejecutarLectura();
 
             }

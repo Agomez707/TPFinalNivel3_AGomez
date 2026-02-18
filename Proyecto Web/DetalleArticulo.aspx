@@ -106,8 +106,8 @@
             <div class="col-12 d-flex justify-content-between">
                 <div>
                     <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClientClick="return validar();" OnClick="btnAceptar_Click" />
+                    <asp:Button ID="btnFavorito" runat="server" Text="Agregar Favorito" CssClass="btn btn-success" OnClick="btnFavorito_Click" />                    
                     <button type="button" class="btn btn-secondary" onclick="history.back();">Cancelar</button>
-                   
                 </div>
 
                 <div>

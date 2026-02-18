@@ -27,7 +27,7 @@ namespace Proyecto_Web
 
                     ListaFavoritos = favorito.Listar(user.Id);
 
-                    if (ListaFavoritos.Count() != 0)
+                    if (ListaFavoritos.Count() > 0)
                     {
                         ListaArticulos = new List<Articulo>();
                         foreach (Favorito fav in ListaFavoritos)
@@ -35,12 +35,16 @@ namespace Proyecto_Web
                             Articulo aux = articulo.listar(fav.idArticulo.ToString())[0];
                             ListaArticulos.Add(aux);
                         }
-                    }                 
+                    }
+                    else
+                    {
+                        ListaArticulos = null;
+                    }
 
                 }
                 else
                 {
-                    ListaArticulos = null;
+                    Response.Redirect("Login.aspx", false);
                 }
                 
 

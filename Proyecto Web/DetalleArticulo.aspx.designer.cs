@@ -105,6 +105,15 @@ namespace Proyecto_Web
         protected global::System.Web.UI.WebControls.Button btnAceptar;
 
         /// <summary>
+        /// Control btnFavorito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFavorito;
+
+        /// <summary>
         /// Control btnEliminar.
         /// </summary>
         /// <remarks>

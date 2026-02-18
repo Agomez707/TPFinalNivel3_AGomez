@@ -75,43 +75,22 @@
 
         /* Botón estilo píldora */
         .btn-modern {
-            border-radius: 50px;
-            padding: 10px 25px;
+            border-radius: 12px;
+            padding: 8px 5px;
             font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            text-transform: none;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .fav-container {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        z-index: 10;
-    }
-
-    .btn-fav {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(5px);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ff4757;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    .btn-fav:hover {
-        background: #ff4757;
-        color: white;
-        transform: scale(1.1);
-    }
+        .btn-outline-danger:hover {
+            background-color: #ff4757;
+            border-color: #ff4757;
+        }
+    
     
     .card-modern {
         position: relative;
@@ -136,16 +115,27 @@
                                  alt="<%: articulo.Nombre %>"
                                  onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg';">
                         </div>
-                        
+
                         <div class="card-body-modern h-100">
                             <h5 class="product-title"><%: articulo.Nombre %></h5>
                             <p class="product-desc"><%: articulo.Descripcion %></p>
-                            
+
                             <div class="mt-auto">
-                                <a href="DetalleArticulo.aspx?id=<%: articulo.Id %>" 
-                                   class="btn btn-dark btn-modern w-100">
-                                   Ver Detalle
-                                </a>
+                                <div class="row g-2">
+                                    <% if (Negocio.Seguridad.sesionActiva(Session["Usuario"]))
+                                        { %>
+                                    <div class="col-6">
+                                        <a href="Favoritos.aspx"
+                                            class="btn btn-outline-danger btn-modern w-100">❤ Favorito
+                                    </a>
+                                    </div>
+                                    <% } %>
+                                    <div class="col-6">
+                                        <a href="DetalleArticulo.aspx?id=<%: articulo.Id %>"
+                                            class="btn btn-dark btn-modern w-100">Detalle
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

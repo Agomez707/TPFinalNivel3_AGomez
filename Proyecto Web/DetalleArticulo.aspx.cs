@@ -41,7 +41,7 @@ namespace Proyecto_Web
                     {
                         desactivarControles();
                         btnEliminar.Visible = false;
-                        btnAceptar.Visible = false;
+                        btnAceptar.Visible = false; 
                     }
                     else
                     {
@@ -51,6 +51,7 @@ namespace Proyecto_Web
                     if (Request.QueryString["id"] == null)
                     {
                         btnEliminar.Visible = false;
+                        btnFavorito.Visible = false;
                     }
 
                 }
@@ -188,6 +189,30 @@ namespace Proyecto_Web
                 imgPreview.ImageUrl = "https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg";
             }
             
+        }
+
+        protected void btnFavorito_Click(object sender, EventArgs e)
+        {
+            FavoritosNegocio negocio = new FavoritosNegocio();
+
+            Usuario user = (Usuario)Session["Usuario"];
+
+            try
+            {
+                if (user != null)
+                {
+                    int idUser = user.Id;
+                    int idarticulo = int.Parse(Request.QueryString["id"].ToString());
+                    negocio.Agregar(idUser, idarticulo);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("error.aspx", false);
+            }
+
         }
     }
 
