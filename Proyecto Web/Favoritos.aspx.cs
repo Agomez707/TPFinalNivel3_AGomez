@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
-using Negocio;
 
 namespace Proyecto_Web
 {
@@ -17,36 +18,42 @@ namespace Proyecto_Web
         {
             try
             {
-                ArticuloNegocio articulo = new ArticuloNegocio();
-                FavoritosNegocio favorito = new FavoritosNegocio();
 
-                if (Seguridad.sesionActiva(Session["Usuario"]))
+                if (!IsPostBack)
                 {
-                    Usuario user = (Usuario)Session["Usuario"];
-                    
+                    ArticuloNegocio articulo = new ArticuloNegocio();
+                    FavoritosNegocio favorito = new FavoritosNegocio();
 
-                    ListaFavoritos = favorito.Listar(user.Id);
-
-                    if (ListaFavoritos.Count() > 0)
+                    if (Seguridad.sesionActiva(Session["Usuario"]))
                     {
-                        ListaArticulos = new List<Articulo>();
-                        foreach (Favorito fav in ListaFavoritos)
+                        Usuario user = (Usuario)Session["Usuario"];
+
+
+                        ListaFavoritos = favorito.Listar(user.Id);
+
+                        if (ListaFavoritos.Count() > 0)
                         {
-                            Articulo aux = articulo.listar(fav.idArticulo.ToString())[0];
-                            ListaArticulos.Add(aux);
+                            ListaArticulos = new List<Articulo>();
+                            foreach (Favorito fav in ListaFavoritos)
+                            {
+                                Articulo aux = articulo.listar(fav.idArticulo.ToString())[0];
+                                ListaArticulos.Add(aux);
+                            }
                         }
+                        else
+                        {
+                            ListaArticulos = null;
+                        }
+
+                        repArticulos.DataSource = ListaArticulos;
+                        repArticulos.DataBind();
+
                     }
                     else
                     {
-                        ListaArticulos = null;
+                        Response.Redirect("Login.aspx", false);
                     }
-
-                }
-                else
-                {
-                    Response.Redirect("Login.aspx", false);
-                }
-                
+                }            
 
 
             }
@@ -57,7 +64,33 @@ namespace Proyecto_Web
             }
 
 
+        }
 
+        protected void btnDetalle_Click(object sender, EventArgs e)
+        {
+            string id = ((Button)sender).CommandArgument;
+            Response.Redirect("DetalleArticulo.aspx?id=" + id);
+        }
+
+        protected void btnQuitarFavorito_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                int idArticulo = int.Parse(((Button)sender).CommandArgument);
+                Usuario user = (Usuario)Session["Usuario"];
+
+                FavoritosNegocio favoritosNegocio = new FavoritosNegocio();
+
+                favoritosNegocio.Eliminar(user.Id, idArticulo);
+
+                Response.Redirect("Favoritos.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("error.aspx", false);
+            }
 
         }
     }

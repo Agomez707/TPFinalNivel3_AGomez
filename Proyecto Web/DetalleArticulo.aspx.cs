@@ -37,11 +37,13 @@ namespace Proyecto_Web
                     ddlMarca.DataTextField = "Descripcion";
                     ddlMarca.DataBind();
 
+                    btnFavorito.Visible = Seguridad.sesionActiva(Session["usuario"]);
+                    
                     if (!Seguridad.esAdmin(Session["usuario"]))
                     {
                         desactivarControles();
                         btnEliminar.Visible = false;
-                        btnAceptar.Visible = false; 
+                        btnAceptar.Visible = false;
                     }
                     else
                     {
@@ -51,7 +53,6 @@ namespace Proyecto_Web
                     if (Request.QueryString["id"] == null)
                     {
                         btnEliminar.Visible = false;
-                        btnFavorito.Visible = false;
                     }
 
                 }

@@ -10,7 +10,7 @@ namespace Negocio
     public class FavoritosNegocio
     {
 
-        public List<Favorito> Listar(int id)
+        public List<Favorito> Listar(int idUser)
         {
             List<Favorito> listaFav = new List<Favorito>();
             AccesoADatos datos = new AccesoADatos();
@@ -20,14 +20,14 @@ namespace Negocio
                 string consulta = "Select id, idArticulo from FAVORITOS where  IdUser = @id";
 
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@id", id);
+                datos.setearParametro("@id", idUser);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Favorito favAux = new Favorito();
                     favAux.Id = (int)datos.Lector["Id"];
-                    favAux.idUser = id;
+                    favAux.idUser = idUser;
                     favAux.idArticulo = (int)datos.Lector["idArticulo"];
 
                     listaFav.Add(favAux);
@@ -86,9 +86,27 @@ namespace Negocio
             {
                 throw new Exception("Error al intentar eliminar Favorito en la base de datos.", ex);
             }
-      
+
         }
-    
+
+        public void Eliminar(int idUser, int idArticulo)
+        {
+            try
+            {
+                AccesoADatos datos = new AccesoADatos();
+
+                string consulta = "delete from FAVORITOS where idUser = @IdUser AND idArticulo = @IdArticulo";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdUser", idUser);
+                datos.setearParametro("@IdArticulo", idArticulo);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar eliminar Favorito en la base de datos.", ex);
+            }
+        }
 
     }
 }

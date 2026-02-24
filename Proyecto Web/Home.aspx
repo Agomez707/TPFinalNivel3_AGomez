@@ -21,10 +21,10 @@
             box-shadow: var(--card-shadow);
         }
 
-        .card-modern:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--card-shadow-hover);
-        }
+            .card-modern:hover {
+                transform: translateY(-8px);
+                box-shadow: var(--card-shadow-hover);
+            }
 
         /* Contenedor de la Imagen */
         .img-container {
@@ -90,11 +90,11 @@
             background-color: #ff4757;
             border-color: #ff4757;
         }
-    
-    
-    .card-modern {
-        position: relative;
-    }
+
+
+        .card-modern {
+            position: relative;
+        }
     </style>
 </asp:Content>
 
@@ -106,41 +106,46 @@
         </div>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-            <% foreach (Dominio.Articulo articulo in ListaArticulos) { %>
-                <div class="col">
-                    <div class="card card-modern h-100">
-                        <div class="img-container">
-                            <img src="<%: articulo.ImagenUrl %>" 
-                                 class="card-img-custom" 
-                                 alt="<%: articulo.Nombre %>"
-                                 onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg';">
-                        </div>
+    <asp:Repeater ID="repArticulos" runat="server">
+        <ItemTemplate>
+            <div class="col">
+                <div class="card card-modern h-100">
+                    <div class="img-container">
+                        <img src='<%# Eval("ImagenUrl") %>' 
+                             class="card-img-custom" 
+                             alt='<%# Eval("Nombre") %>'
+                             onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg';">
+                    </div>
+                    <div class="card-body-modern h-100">
+                        <h5 class="product-title"><%# Eval("Nombre") %></h5>
+                        <p class="product-desc"><%# Eval("Descripcion") %></p>
 
-                        <div class="card-body-modern h-100">
-                            <h5 class="product-title"><%: articulo.Nombre %></h5>
-                            <p class="product-desc"><%: articulo.Descripcion %></p>
-
-                            <div class="mt-auto">
-                                <div class="row g-2">
-                                    <% if (Negocio.Seguridad.sesionActiva(Session["Usuario"]))
-                                        { %>
-                                    <div class="col-6">
-                                        <a href="Favoritos.aspx"
-                                            class="btn btn-outline-danger btn-modern w-100">❤ Favorito
-                                    </a>
-                                    </div>
-                                    <% } %>
-                                    <div class="col-6">
-                                        <a href="DetalleArticulo.aspx?id=<%: articulo.Id %>"
-                                            class="btn btn-dark btn-modern w-100">Detalle
-                                        </a>
-                                    </div>
+                        <div class="mt-auto">
+                            <div class="row g-2">
+                                <%-- Botón Detalle --%>
+                                <div class="col-<%# Negocio.Seguridad.sesionActiva(Session["Usuario"]) ? "6" : "12" %>">
+                                    <asp:Button ID="btnDetalle" runat="server" Text="Detalle"
+                                        CssClass="btn btn-dark btn-modern w-100"
+                                        OnClick="btnDetalle_Click"
+                                        CommandArgument='<%# Eval("Id") %>' />
                                 </div>
+
+                                <%-- Botón Favorito (sin sesion no se ve) --%>
+                                <% if (Negocio.Seguridad.sesionActiva(Session["Usuario"])) { %>
+                                    <div class="col-6">
+                                        <asp:Button ID="btnFavorito" runat="server" Text="❤ Fav"
+                                            CssClass="btn btn-outline-danger btn-modern w-100"
+                                            OnClick="btnFavorito_Click"
+                                            CommandArgument='<%# Eval("Id") %>' />
+                                    </div>
+                                <% } %>
                             </div>
                         </div>
                     </div>
                 </div>
-            <% } %>
-        </div>
+            </div>
+        </ItemTemplate>
+    </asp:Repeater>
+</div>
     </div>
 </asp:Content>

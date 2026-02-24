@@ -125,31 +125,45 @@
             <% if (ListaArticulos != null)
                 { %>
 
-            <% foreach (Dominio.Articulo articulo in ListaArticulos)
-                { %>
-                <div class="col">
-                    <div class="card card-modern h-100">
-                        <div class="img-container">
-                            <img src="<%: articulo.ImagenUrl %>" 
-                                 class="card-img-custom" 
-                                 alt="<%: articulo.Nombre %>"
-                                 onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg';">
-                        </div>
-                        
-                        <div class="card-body-modern h-100">
-                            <h5 class="product-title"><%: articulo.Nombre %></h5>
-                            <p class="product-desc"><%: articulo.Descripcion %></p>
-                            
-                            <div class="mt-auto">
-                                <a href="DetalleArticulo.aspx?id=<%: articulo.Id %>" 
-                                   class="btn btn-dark btn-modern w-100">
-                                   Ver Detalle
-                                </a>
+           <asp:Repeater ID="repArticulos" runat="server">
+    <ItemTemplate>
+        <div class="col">
+            <div class="card card-modern h-100">
+                <div class="img-container">
+                    <img src='<%# Eval("ImagenUrl") %>' 
+                         class="card-img-custom" 
+                         alt='<%# Eval("Nombre") %>'
+                         onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg';">
+                </div>
+                <div class="card-body-modern h-100">
+                    <h5 class="product-title"><%# Eval("Nombre") %></h5>
+                    <p class="product-desc"><%# Eval("Descripcion") %></p>
+
+                    <div class="mt-auto">
+                        <div class="row g-2">
+                            <%-- Botón Detalle --%>
+                            <div class="col-<%# Negocio.Seguridad.sesionActiva(Session["Usuario"]) ? "6" : "12" %>">
+                                <asp:Button ID="btnDetalle" runat="server" Text="Detalle"
+                                    CssClass="btn btn-dark btn-modern w-100"
+                                    OnClick="btnDetalle_Click"
+                                    CommandArgument='<%# Eval("Id") %>' />
                             </div>
+
+                            <%-- Botón Favorito () --%>
+                                <div class="col-6">
+                                    <asp:Button ID="btnFavorito" runat="server" Text="Quitar Fav"
+                                        CssClass="btn btn-outline-danger btn-modern w-100"
+                                        OnClick="btnQuitarFavorito_Click"
+                                        CommandArgument='<%# Eval("Id") %>' />
+                                </div>
+
                         </div>
                     </div>
                 </div>
-            <% } %>
+            </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
 
             <% }
                 else
