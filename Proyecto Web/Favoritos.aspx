@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="Favoritos.aspx.cs" Inherits="Proyecto_Web.Favoritos" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         :root {
@@ -20,10 +21,10 @@
             box-shadow: var(--card-shadow);
         }
 
-        .card-modern:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--card-shadow-hover);
-        }
+            .card-modern:hover {
+                transform: translateY(-8px);
+                box-shadow: var(--card-shadow-hover);
+            }
 
         /* Contenedor de la Imagen */
         .img-container {
@@ -84,37 +85,37 @@
         }
 
         .fav-container {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        z-index: 10;
-    }
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
 
-    .btn-fav {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(5px);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ff4757;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
+        .btn-fav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4757;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-    .btn-fav:hover {
-        background: #ff4757;
-        color: white;
-        transform: scale(1.1);
-    }
-    
-    .card-modern {
-        position: relative;
-    }
+            .btn-fav:hover {
+                background: #ff4757;
+                color: white;
+                transform: scale(1.1);
+            }
+
+        .card-modern {
+            position: relative;
+        }
     </style>
 </asp:Content>
 
@@ -125,45 +126,45 @@
             <% if (ListaArticulos != null)
                 { %>
 
-           <asp:Repeater ID="repArticulos" runat="server">
-    <ItemTemplate>
-        <div class="col">
-            <div class="card card-modern h-100">
-                <div class="img-container">
-                    <img src='<%# Eval("ImagenUrl") %>' 
-                         class="card-img-custom" 
-                         alt='<%# Eval("Nombre") %>'
-                         onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg';">
-                </div>
-                <div class="card-body-modern h-100">
-                    <h5 class="product-title"><%# Eval("Nombre") %></h5>
-                    <p class="product-desc"><%# Eval("Descripcion") %></p>
-
-                    <div class="mt-auto">
-                        <div class="row g-2">
-                            <%-- Botón Detalle --%>
-                            <div class="col-<%# Negocio.Seguridad.sesionActiva(Session["Usuario"]) ? "6" : "12" %>">
-                                <asp:Button ID="btnDetalle" runat="server" Text="Detalle"
-                                    CssClass="btn btn-dark btn-modern w-100"
-                                    OnClick="btnDetalle_Click"
-                                    CommandArgument='<%# Eval("Id") %>' />
+            <asp:Repeater ID="repArticulos" runat="server">
+                <ItemTemplate>
+                    <div class="col">
+                        <div class="card card-modern h-100">
+                            <div class="img-container">
+                                <img src='<%# Eval("ImagenUrl") %>'
+                                    class="card-img-custom"
+                                    alt='<%# Eval("Nombre") %>'
+                                    onerror="this.src='https://previews.123rf.com/images/yoginta/yoginta2301/yoginta230100567/196853824-image-not-found-vector-illustration.jpg';">
                             </div>
+                            <div class="card-body-modern h-100">
+                                <h5 class="product-title"><%# Eval("Nombre") %></h5>
+                                <p class="product-desc"><%# Eval("Descripcion") %></p>
 
-                            <%-- Botón Favorito () --%>
-                                <div class="col-6">
-                                    <asp:Button ID="btnFavorito" runat="server" Text="Quitar Fav"
-                                        CssClass="btn btn-outline-danger btn-modern w-100"
-                                        OnClick="btnQuitarFavorito_Click"
-                                        CommandArgument='<%# Eval("Id") %>' />
+                                <div class="mt-auto">
+                                    <div class="row g-2">
+                                        <%-- Botón Detalle --%>
+                                        <div class="col-<%# Negocio.Seguridad.sesionActiva(Session["Usuario"]) ? "6" : "12" %>">
+                                            <asp:Button ID="btnDetalle" runat="server" Text="Detalle"
+                                                CssClass="btn btn-dark btn-modern w-100"
+                                                OnClick="btnDetalle_Click"
+                                                CommandArgument='<%# Eval("Id") %>' />
+                                        </div>
+
+                                        <%-- Botón Favorito () --%>
+                                        <div class="col-6">
+                                            <asp:Button ID="btnFavorito" runat="server" Text="Quitar Fav"
+                                                CssClass="btn btn-outline-danger btn-modern w-100"
+                                                OnClick="btnQuitarFavorito_Click"
+                                                CommandArgument='<%# Eval("Id") %>' />
+                                        </div>
+
+                                    </div>
                                 </div>
-
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </ItemTemplate>
-</asp:Repeater>
+                </ItemTemplate>
+            </asp:Repeater>
 
             <% }
                 else

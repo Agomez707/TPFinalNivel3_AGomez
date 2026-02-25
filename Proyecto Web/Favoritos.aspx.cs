@@ -28,7 +28,6 @@ namespace Proyecto_Web
                     {
                         Usuario user = (Usuario)Session["Usuario"];
 
-
                         ListaFavoritos = favorito.Listar(user.Id);
 
                         if (ListaFavoritos.Count() > 0)

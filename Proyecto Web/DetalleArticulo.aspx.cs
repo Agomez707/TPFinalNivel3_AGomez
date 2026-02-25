@@ -194,17 +194,22 @@ namespace Proyecto_Web
 
         protected void btnFavorito_Click(object sender, EventArgs e)
         {
-            FavoritosNegocio negocio = new FavoritosNegocio();
-
-            Usuario user = (Usuario)Session["Usuario"];
-
             try
             {
-                if (user != null)
+                if (Negocio.Seguridad.sesionActiva(Session["Usuario"]))
                 {
-                    int idUser = user.Id;
-                    int idarticulo = int.Parse(Request.QueryString["id"].ToString());
-                    negocio.Agregar(idUser, idarticulo);
+                    Usuario user = (Usuario)Session["Usuario"];
+                    int idArticulo = int.Parse(Request.QueryString["id"].ToString());
+
+                    if (!favoritoRepetido(user.Id, idArticulo))
+                    {
+                        FavoritosNegocio negocio = new FavoritosNegocio();
+                        negocio.Agregar(user.Id, idArticulo);
+
+                        Response.Redirect("Favoritos.aspx", false);
+                    }
+
+                    Response.Redirect("Favoritos.aspx", false);
                 }
 
             }
@@ -214,6 +219,29 @@ namespace Proyecto_Web
                 Response.Redirect("error.aspx", false);
             }
 
+        }
+
+        //esto no me convence que se repita pero por ahora lo repito para que ande je tendria que crear una clase para guardar esta funcion calculo
+        private bool favoritoRepetido(int idUser, int idArticulo)
+        {
+            bool esRepetido = false;
+            List<Favorito> ListaFav = new List<Favorito>();
+            FavoritosNegocio favoritosNegocio = new FavoritosNegocio();
+
+            ListaFav = favoritosNegocio.Listar(idUser);
+
+            if (ListaFav.Count() > 0)
+            {
+                foreach (Favorito fav in ListaFav)
+                {
+                    if (fav.idArticulo == idArticulo)
+                    {
+                        esRepetido = true;
+                    }
+                }
+            }
+
+            return esRepetido;
         }
     }
 

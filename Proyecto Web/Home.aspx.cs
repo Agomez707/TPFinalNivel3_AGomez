@@ -35,7 +35,6 @@ namespace Proyecto_Web
 
         protected void btnDetalle_Click(object sender, EventArgs e)
         {
-            // Ahora CommandArgument tendrá el ID numérico real
             string id = ((Button)sender).CommandArgument;
             Response.Redirect("DetalleArticulo.aspx?id=" + id);
         }
@@ -44,14 +43,41 @@ namespace Proyecto_Web
         {
             if (Negocio.Seguridad.sesionActiva(Session["Usuario"]))
             {
-                string idArticulo = ((Button)sender).CommandArgument;
+                int idArticulo = int.Parse(((Button)sender).CommandArgument);
                 Usuario user = (Usuario)Session["Usuario"];
 
-                FavoritosNegocio negocio = new FavoritosNegocio();
-                negocio.Agregar(user.Id, int.Parse(idArticulo));
+                if (!favoritoRepetido(user.Id, idArticulo))
+                {
+                    FavoritosNegocio negocio = new FavoritosNegocio();
+                    negocio.Agregar(user.Id, idArticulo);
 
-                Response.Redirect("Favoritos.aspx");
+                    Response.Redirect("Favoritos.aspx", false);
+                }
+
+                Response.Redirect("Favoritos.aspx", false);
             }
+        }
+
+        private bool favoritoRepetido(int idUser, int idArticulo)
+        {
+            bool esRepetido = false;
+            List<Favorito> ListaFav = new List<Favorito>();
+            FavoritosNegocio favoritosNegocio = new FavoritosNegocio();
+
+            ListaFav = favoritosNegocio.Listar(idUser);
+
+            if (ListaFav.Count() > 0)
+            {
+                foreach (Favorito fav in ListaFav)
+                {
+                    if (fav.idArticulo == idArticulo)
+                    {
+                        esRepetido = true;
+                    }
+                }
+            }
+            
+            return esRepetido;
         }
     }
 
