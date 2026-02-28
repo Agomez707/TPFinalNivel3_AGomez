@@ -69,7 +69,7 @@
     <Content Include="Error.aspx" />
     <Content Include="Favoritos.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Home.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="ListaDeProductos.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Perfil.aspx" />
@@ -101,12 +101,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Home.aspx.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Home.aspx.designer.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListaDeProductos.aspx.cs">
       <DependentUpon>ListaDeProductos.aspx</DependentUpon>
